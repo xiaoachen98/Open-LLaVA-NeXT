@@ -13,7 +13,7 @@ See more details in [ModelZoo.md](docs/ModelZoo.md).
 | Name | LLM | Checkpoint | SEED-image | SQA-image | MMBench | MMBench-CN | TextVQA | VizWiz | GQA | VQA-v2 | POPE | MME |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
 | LLaVA-NeXT-Vicuna-7B | Vicuna-7B | [LLaVA-NeXT-Vicuna-7B](https://huggingface.co/liuhaotian/llava-v1.6-vicuna-7b) | 70.2 | 70.1 | 67.4 | 60.6 | 64.9 | 57.6 | 64.2 | 81.8 | 86.53 | 1519 |
-| Open-LLaVA-NeXT-Vicuna-7B | Vicuna-7B | [Open-LLaVA-NeXT-Vicuna-7B](https://huggingface.co/Lin-Chen/ShareGPT4V-13B) | 70.86 | 71.19 | 68.02 | 60.73 | 67.29 | 59.44 | 64.24 | 81.7 | 86.3 | 1489 |
+| Open-LLaVA-NeXT-Vicuna-7B | Vicuna-7B | [Open-LLaVA-NeXT-Vicuna-7B]() | 70.86 | 71.19 | 68.02 | 60.73 | 67.29 | 59.44 | 64.24 | 81.7 | 86.3 | 1489 |
 
 
 ## Install
@@ -38,6 +38,9 @@ pip install -e ".[train]"
 pip install flash-attn --no-build-isolation
 ```
 
+## Data Preparation
+
+You should follow this instruction **[Data.md](docs/Data.md)** to manage the datasets.
 
 ## Train
 
@@ -76,35 +79,9 @@ Training script with DeepSpeed ZeRO-2: [`pretrain.sh`](scripts/v1_6/train/7b/pre
 
 ### Visual Instruction Tuning
 
-1. Prepare data
 
-Please download the annotation of the final mixture our instruction tuning data [llava_v1_5_mix665k.json](https://huggingface.co/datasets/liuhaotian/LLaVA-Instruct-150K/blob/main/llava_v1_5_mix665k.json), and download the images from constituting datasets:
 
-- COCO: [train2017](http://images.cocodataset.org/zips/train2017.zip)
-- GQA: [images](https://downloads.cs.stanford.edu/nlp/data/gqa/images.zip)
-- OCR-VQA: [download script](https://drive.google.com/drive/folders/1_GYPY5UkUy7HIcR0zq3ZCFgeZN7BAfm_?usp=sharing), **we save all files as `.jpg`**
-- TextVQA: [train_val_images](https://dl.fbaipublicfiles.com/textvqa/images/train_val_images.zip)
-- VisualGenome: [part1](https://cs.stanford.edu/people/rak248/VG_100K_2/images.zip), [part2](https://cs.stanford.edu/people/rak248/VG_100K_2/images2.zip)
-
-After downloading all of them, organize the data as follows in `./playground/data`,
-
-```
-├── coco
-│   └── train2017
-├── gqa
-│   └── images
-├── ocr_vqa
-│   └── images
-├── textvqa
-│   └── train_images
-└── vg
-    ├── VG_100K
-    └── VG_100K_2
-```
-
-2. Start training!
-
-You may download our pretrained projectors in [Model Zoo](LLaVA/docs/MODEL_ZOO.md at main · haotian-liu/LLaVA). 
+You may download our pretrained projectors in [Model Zoo](docs/ModelZoo.md). 
 
 Visual instruction tuning takes around 20 hours for Open-LLaVA-NeXT-7B on 16x A100 (80G).
 
