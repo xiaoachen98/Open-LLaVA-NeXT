@@ -299,30 +299,7 @@ class LLaVATrainer(Trainer):
                 torch.save(weight_to_save, os.path.join(output_dir, f'mm_projector.bin'))
    
         else:
-            super(LLaVATrainer, self)._save_checkpoint(model, trial, metrics)
-            
-            if getattr(self.args, "unfreeze_mm_vision_tower", False):
-                from transformers.trainer_utils import PREFIX_CHECKPOINT_DIR
-                checkpoint_folder = f"{PREFIX_CHECKPOINT_DIR}-{self.state.global_step}"
-
-                run_dir = self._get_output_dir(trial=trial)
-                output_dir = os.path.join(run_dir, checkpoint_folder)
-
-                if self.deepspeed:
-                    torch.cuda.synchronize()
-                mm_vision_tower_folder = os.path.join(output_dir, 'vision_tower')
-                os.makedirs(mm_vision_tower_folder, exist_ok=True)
-
-                self.model.config.mm_vision_tower = mm_vision_tower_folder
-                self.model.get_vision_tower().image_processor.save_pretrained(mm_vision_tower_folder)
-                self.model.get_vision_tower().vision_tower.vision_model.config.save_pretrained(
-                    mm_vision_tower_folder)
-                weight_to_save = get_vision_tower_state_maybe_zero_3(
-                    self.model.get_vision_tower().vision_tower.named_parameters())
-                if self.args.local_rank == 0 or self.args.local_rank == -1:
-                    torch.save(weight_to_save, os.path.join(
-                        mm_vision_tower_folder, 'pytorch_model.bin')) 
-                        
+            super(LLaVATrainer, self)._save_checkpoint(model, trial, metrics)                   
 
 
     def _save(self, output_dir: Optional[str] = None, state_dict=None):

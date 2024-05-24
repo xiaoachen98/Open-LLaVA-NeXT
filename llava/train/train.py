@@ -231,25 +231,6 @@ def safe_save_model_for_hf_trainer(trainer: transformers.Trainer,
                     output_dir, f'mm_projector.bin'))
         return
 
-    if getattr(trainer.args, "unfreeze_mm_vision_tower", False):
-        if trainer.deepspeed:
-            torch.cuda.synchronize()
-        mm_vision_tower_folder = os.path.join(output_dir, 'vision_tower')
-        os.makedirs(mm_vision_tower_folder, exist_ok=True)
-
-        trainer.model.config.mm_vision_tower = mm_vision_tower_folder
-        trainer.model.get_vision_tower().image_processor.save_pretrained(mm_vision_tower_folder)
-        trainer.model.get_vision_tower().vision_tower.vision_model.config.save_pretrained(
-            mm_vision_tower_folder)
-        weight_to_save = get_vision_tower_state_maybe_zero_3(
-            trainer.model.get_vision_tower().vision_tower.named_parameters())
-        if trainer.args.local_rank == 0 or trainer.args.local_rank == -1:
-            torch.save(weight_to_save, os.path.join(
-                mm_vision_tower_folder, 'pytorch_model.bin'))
-
-    if getattr(trainer.model.model, 'vision_tower', None) is not None:
-        del trainer.model.model.vision_tower
-
     if trainer.deepspeed:
         torch.cuda.synchronize()
         trainer.save_model(output_dir)
