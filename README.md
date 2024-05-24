@@ -41,7 +41,7 @@ pip install flash-attn --no-build-isolation
 
 ## Train
 
-Open-LLaVA-NeXT training consists of two stages: (1) feature alignment stage: use 558K subset of the LAION-CC-SBU dataset to connect a *frozen pretrained* vision encoder to a *frozen LLM*; (2) visual instruction tuning stage:  finetune the projector, vision encoder and LLM with 1M **completely open source** data. Detailed data composition is in [Visual Instruction Tuning](Build software better, together).
+Open-LLaVA-NeXT training consists of two stages: (1) feature alignment stage: use 558K subset of the LAION-CC-SBU dataset to connect a *frozen pretrained* vision encoder to a *frozen LLM*; (2) visual instruction tuning stage:  finetune the projector, vision encoder and LLM with 1M **completely open source** data. Detailed data composition is in [Visual Instruction Tuning](https://github.com/xiaoachen98/Open-LLaVA-NeXT?tab=readme-ov-file#visual-instruction-tuning).
 
 If you just want to fine-tune for Dynamic High Resolution, you can choose to skip the pretrain stage and reuse the pretrained connector of LLaVA-1.5, just as done in the [LLaVA-NeXT Blog](https://llava-vl.github.io/blog/2024-01-30-llava-next/).
 
