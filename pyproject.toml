@@ -3,9 +3,9 @@ requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "llava"
-version = "1.2.2.post1"
-description = "Towards GPT-4 like large language and visual assistant."
+name = "llava-next"
+version = "0.0.1"
+description = "Reproduce LLaVA-Next series"
 readme = "README.md"
 requires-python = ">=3.8"
 classifiers = [
@@ -27,8 +27,8 @@ train = ["deepspeed==0.12.6", "ninja", "wandb"]
 build = ["build", "twine"]
 
 [project.urls]
-"Homepage" = "https://llava-vl.github.io"
-"Bug Tracker" = "https://github.com/haotian-liu/LLaVA/issues"
+"Homepage" = "https://github.com/xiaoachen98/Open-LLaVA-NeXT"
+"Bug Tracker" = "https://github.com/xiaoachen98/Open-LLaVA-NeXT/issues"
 
 [tool.setuptools.packages.find]
 exclude = ["assets*", "benchmark*", "docs", "dist*", "playground*", "scripts*", "tests*"]
