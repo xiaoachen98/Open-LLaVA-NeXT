@@ -17,7 +17,13 @@ See more details in [ModelZoo.md](docs/ModelZoo.md).
 | LLaVA-NeXT-Vicuna-7B | Vicuna-7B | [LLaVA-NeXT-Vicuna-7B](https://huggingface.co/liuhaotian/llava-v1.6-vicuna-7b) | 1519 | 70.2 | 70.1 | 67.4 | 60.6 | 64.9 | 64.2 |
 | Open-LLaVA-NeXT-Vicuna-7B | Vicuna-7B | [Open-LLaVA-NeXT-Vicuna-7B]() | **1540** | **71.1** | **70.7** | **68.5** | **60.7** | **67.2** | **64.3** |
 
-## Install
+## 👨‍💻 ToDo
+
+- [ ] Reproduce LLaVA-Next-LLaMA3-8B
+- [ ] Reproduce LLaVA-Next-Nous-Yi-34B
+- [ ] Integrate [VLMEvalKit](https://github.com/open-compass/VLMEvalKit) for convenient evaluation
+
+## 🔧 Install
 
 1. Clone this repository and navigate to Open-LLaVA-NeXT folder
 ```bash
@@ -43,7 +49,7 @@ pip install flash-attn --no-build-isolation
 
 You should follow this instruction **[Data.md](docs/Data.md)** to manage the training datasets.
 
-## Train
+## Training Overview
 
 Open-LLaVA-NeXT training consists of two stages: (1) feature alignment stage: use 558K subset of the LAION-CC-SBU dataset to connect a *frozen pretrained* vision encoder to a *frozen LLM*; (2) visual instruction tuning stage:  finetune the entire model with 1M **completely open source** data. Detailed data statics is provided in [Visual Instruction Tuning](https://github.com/xiaoachen98/Open-LLaVA-NeXT?tab=readme-ov-file#visual-instruction-tuning). We take the Vicuna-v1.5-7B variant as example to present the training  and evaluation details.
 
@@ -64,7 +70,7 @@ We use a same set of hyperparameters as LLaVA in finetuning.  Both hyperparamete
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
 | Open-LLaVA-NeXT-7B | 128 | 2e-5 | 2e-5 | 2e-6 | 1 | 4096 | 0 |
 
-### Pretrain (feature alignment)
+### Pretrain
 
 Please download the 558K subset of the LAION-CC-SBU dataset with BLIP captions [here](https://huggingface.co/datasets/liuhaotian/LLaVA-Pretrain).
 
