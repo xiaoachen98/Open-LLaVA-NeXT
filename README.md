@@ -15,7 +15,7 @@ See more details in [ModelZoo.md](docs/ModelZoo.md).
 | Name | LLM | Checkpoint | MME | SEED-image | SQA-image | MMBench | MMBench-CN | TextVQA | VizWiz | GQA | VQA-v2 |
 |---|---|---|---|---|---|---|---|---|---|---|---|
 | LLaVA-NeXT-Vicuna-7B | Vicuna-7B | [LLaVA-NeXT-Vicuna-7B](https://huggingface.co/liuhaotian/llava-v1.6-vicuna-7b) | 1519 | 70.2 | 70.1 | 67.4 | 60.6 | 64.9 | 57.6 | 64.2 | 81.8 |
-| Open-LLaVA-NeXT-Vicuna-7B | Vicuna-7B | [Open-LLaVA-NeXT-Vicuna-7B]() | 1540 | 71.1 | 70.7 | 68.5 | 60.7 | 67.2 | - | 64.3 | - |
+| Open-LLaVA-NeXT-Vicuna-7B | Vicuna-7B | [Open-LLaVA-NeXT-Vicuna-7B]() | **1540** | **71.1** | **70.7** | **68.5** | **60.7** | **67.2** | - | **64.3** | - |
 
 ## Install
 
