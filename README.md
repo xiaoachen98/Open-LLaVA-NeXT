@@ -4,8 +4,8 @@ An open-source implementation of **LLaVA-NeXT** series for facilitating the larg
 
 ## 💡 Highlights
 
-- 🔥 All training data are **open-sourced**.
-- 🔥 Able to reproduce the results of **[LLaVA-NeXT](https://llava-vl.github.io/blog/2024-01-30-llava-next/)** on all benchmarks.
+- 🔥 All training data are open-sourced.
+- 🔥 Able to reproduce the results of **[LLaVA-NeXT](https://llava-vl.github.io/blog/2024-05-10-llava-next-stronger-llms/)**.
 - 🔥 Based on the **[LLaVA](https://github.com/haotian-liu/LLaVA)** codebase with minimal modification, easy to follow.
 
 ## 🤖 Model Zoo

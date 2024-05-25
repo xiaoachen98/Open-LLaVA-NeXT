@@ -83,7 +83,7 @@ def eval_model(args):
     model_name = get_model_name_from_path(model_path)
     tokenizer, model, image_processor, context_len = load_pretrained_model(model_path, args.model_base, model_name)
 
-    if args.square_eval is True:
+    if args.square_eval:
         model.config.image_grid_pinpoints = [
         [
         672,

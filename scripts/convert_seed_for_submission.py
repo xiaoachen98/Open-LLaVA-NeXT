@@ -59,16 +59,3 @@ if __name__ == "__main__":
 
     results = eval_single(args.result_file)
     eval_single(args.result_file, eval_only_type='image')
-    eval_single(args.result_file, eval_only_type='video')
-
-    with open(args.result_upload_file, 'w') as fp:
-        for question in data['questions']:
-            qid = question['question_id']
-            if qid in results:
-                result = results[qid]
-            else:
-                result = results[int(qid)]
-            fp.write(json.dumps({
-                'question_id': qid,
-                'prediction': result['text']
-            }) + '\n')

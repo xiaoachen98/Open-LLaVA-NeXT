@@ -5,12 +5,13 @@ IFS=',' read -ra GPULIST <<< "$gpu_list"
 
 CHUNKS=${#GPULIST[@]}
 
-CKPT="llava-v1.6-7b"
+CKPT=$1
+CKPT_DIR=${2-'checkpoints'}
 
 for IDX in $(seq 0 $((CHUNKS-1))); do
     CUDA_VISIBLE_DEVICES=${GPULIST[$IDX]} python -m llava.eval.model_vqa_loader \
-        --model-path checkpoints/llava-v1.6-7b \
-        --question-file ./playground/data/eval/seed_bench/llava-seed-bench.jsonl \
+        --model-path ${CKPT_DIR}/${CKPT} \
+        --question-file ./playground/data/eval/seed_bench/llava-seed-bench-image.jsonl \
         --image-folder ./playground/data/eval/seed_bench \
         --answers-file ./playground/data/eval/seed_bench/answers/$CKPT/${CHUNKS}_${IDX}.jsonl \
         --num-chunks $CHUNKS \
