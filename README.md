@@ -1,6 +1,6 @@
 # Open-LLaVA-NeXT
 
-An re-implementation of **LLaVA-NeXT** series for facilitating the large multi-modal model community.
+An open-source implementation of **LLaVA-NeXT** series for facilitating the large multi-modal model community.
 
 ## 💡 Highlights
 
