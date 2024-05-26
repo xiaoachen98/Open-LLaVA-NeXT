@@ -1,20 +1,20 @@
 import argparse
-import torch
-import os
 import json
-import pandas as pd
-from tqdm import tqdm
-import shortuuid
+import math
+import os
 
-from llava.constants import IMAGE_TOKEN_INDEX, DEFAULT_IMAGE_TOKEN, DEFAULT_IM_START_TOKEN, DEFAULT_IM_END_TOKEN
-from llava.conversation import conv_templates, SeparatorStyle
+import pandas as pd
+import shortuuid
+import torch
+from tqdm import tqdm
+
+from llava.constants import (DEFAULT_IM_END_TOKEN, DEFAULT_IM_START_TOKEN,
+                             DEFAULT_IMAGE_TOKEN, IMAGE_TOKEN_INDEX)
+from llava.conversation import conv_templates
+from llava.mm_utils import (get_model_name_from_path, load_image_from_base64,
+                            process_images, tokenizer_image_token)
 from llava.model.builder import load_pretrained_model
 from llava.utils import disable_torch_init
-from llava.mm_utils import tokenizer_image_token, process_images, load_image_from_base64, get_model_name_from_path
-
-from PIL import Image
-import math
-
 
 all_options = ['A', 'B', 'C', 'D']
 
@@ -41,6 +41,7 @@ def is_none(value):
         return True
     return False
 
+
 def get_options(row, options):
     parsed_options = []
     for option in options:
@@ -56,15 +57,16 @@ def eval_model(args):
     disable_torch_init()
     model_path = os.path.expanduser(args.model_path)
     model_name = get_model_name_from_path(model_path)
-    tokenizer, model, image_processor, context_len = load_pretrained_model(model_path, args.model_base, model_name)
+    tokenizer, model, image_processor, context_len = load_pretrained_model(
+        model_path, args.model_base, model_name)
 
     if args.square_eval:
         model.config.image_grid_pinpoints = [
-        [
-        672,
-        672
+            [
+                672,
+                672
+            ]
         ]
-    ]
 
     questions = pd.read_table(os.path.expanduser(args.question_file))
     questions = get_chunk(questions, args.num_chunks, args.chunk_idx)
@@ -74,7 +76,8 @@ def eval_model(args):
 
     if 'plain' in model_name and 'finetune' not in model_name.lower() and 'mmtag' not in args.conv_mode:
         args.conv_mode = args.conv_mode + '_mmtag'
-        print(f'It seems that this is a plain model, but it is not using a mmtag prompt, auto switching to {args.conv_mode}.')
+        print(
+            f'It seems that this is a plain model, but it is not using a mmtag prompt, auto switching to {args.conv_mode}.')
 
     for index, row in tqdm(questions.iterrows(), total=len(questions)):
         options = get_options(row, all_options)
@@ -96,7 +99,8 @@ def eval_model(args):
                 question = question + '\n' + option_char + '. ' + option
             qs = cur_prompt = question
             if model.config.mm_use_im_start_end:
-                qs = DEFAULT_IM_START_TOKEN + DEFAULT_IMAGE_TOKEN + DEFAULT_IM_END_TOKEN + '\n' + qs
+                qs = DEFAULT_IM_START_TOKEN + DEFAULT_IMAGE_TOKEN + \
+                    DEFAULT_IM_END_TOKEN + '\n' + qs
             else:
                 qs = DEFAULT_IMAGE_TOKEN + '\n' + qs
 
@@ -111,9 +115,11 @@ def eval_model(args):
             conv.append_message(conv.roles[1], None)
             prompt = conv.get_prompt()
 
-            input_ids = tokenizer_image_token(prompt, tokenizer, IMAGE_TOKEN_INDEX, return_tensors='pt').unsqueeze(0).cuda()
+            input_ids = tokenizer_image_token(
+                prompt, tokenizer, IMAGE_TOKEN_INDEX, return_tensors='pt').unsqueeze(0).cuda()
 
-            image_tensor = process_images([image], image_processor, model.config)[0]
+            image_tensor = process_images(
+                [image], image_processor, model.config)[0]
 
             with torch.inference_mode():
                 output_ids = model.generate(
@@ -126,20 +132,22 @@ def eval_model(args):
                     num_beams=args.num_beams,
                     # no_repeat_ngram_size=3,
                     max_new_tokens=1024,
+                    pad_token_id=tokenizer.pad_token_id,
                     use_cache=True)
 
-            outputs = tokenizer.batch_decode(output_ids, skip_special_tokens=True)[0].strip()
+            outputs = tokenizer.batch_decode(
+                output_ids, skip_special_tokens=True)[0].strip()
 
             ans_id = shortuuid.uuid()
             ans_file.write(json.dumps({"question_id": idx,
-                                    "round_id": round_idx,
-                                    "prompt": cur_prompt,
-                                    "text": outputs,
-                                    "options": options,
-                                    "option_char": cur_option_char,
-                                    "answer_id": ans_id,
-                                    "model_id": model_name,
-                                    "metadata": {}}) + "\n")
+                                       "round_id": round_idx,
+                                       "prompt": cur_prompt,
+                                       "text": outputs,
+                                       "options": options,
+                                       "option_char": cur_option_char,
+                                       "answer_id": ans_id,
+                                       "model_id": model_name,
+                                       "metadata": {}}) + "\n")
             ans_file.flush()
 
             # rotate options
@@ -147,12 +155,14 @@ def eval_model(args):
             cur_option_char = cur_option_char[1:] + cur_option_char[:1]
     ans_file.close()
 
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--model-path", type=str, default="facebook/opt-350m")
     parser.add_argument("--model-base", type=str, default=None)
     parser.add_argument("--image-folder", type=str, default="")
-    parser.add_argument("--question-file", type=str, default="tables/question.jsonl")
+    parser.add_argument("--question-file", type=str,
+                        default="tables/question.jsonl")
     parser.add_argument("--answers-file", type=str, default="answer.jsonl")
     parser.add_argument("--conv-mode", type=str, default="llava_v1")
     parser.add_argument("--num-chunks", type=int, default=1)
@@ -163,7 +173,7 @@ if __name__ == "__main__":
     parser.add_argument("--all-rounds", action="store_true")
     parser.add_argument("--single-pred-prompt", action="store_true")
     parser.add_argument("--lang", type=str, default="en")
-    parser.add_argument("--square_eval", type=bool, default= False)
+    parser.add_argument("--square_eval", type=bool, default=False)
     args = parser.parse_args()
 
     eval_model(args)

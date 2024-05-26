@@ -121,6 +121,7 @@ def eval_model(args):
             top_p=args.top_p,
             num_beams=args.num_beams,
             max_new_tokens=args.max_new_tokens,
+            pad_token_id=tokenizer.pad_token_id,
             use_cache=True,
         )
 

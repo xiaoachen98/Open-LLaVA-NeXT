@@ -1,25 +1,28 @@
 #!/bin/bash
+# srun -p mllm --gres gpu:8 bash scripts/v1_6/eval/gqa.sh
 
 gpu_list="${CUDA_VISIBLE_DEVICES:-0}"
 IFS=',' read -ra GPULIST <<< "$gpu_list"
-
 CHUNKS=${#GPULIST[@]}
 
-CKPT="llava-v1.6-7b"
+CONV_MODE=llava_llama_3
+CKPT=$1
+CKPT_DIR=${2-"checkpoints"}
+
 SPLIT="llava_gqa_testdev_balanced"
 GQADIR="./playground/data/eval/gqa/data"
 
 for IDX in $(seq 0 $((CHUNKS-1))); do
     CUDA_VISIBLE_DEVICES=${GPULIST[$IDX]} python -m llava.eval.model_vqa_loader \
-        --model-path checkpoints/llava-v1.6-7b \
+        --model-path ${CKPT_DIR}/${CKPT} \
         --question-file ./playground/data/eval/gqa/$SPLIT.jsonl \
-        --image-folder ./playground/data/eval/gqa/data/images \
+        --image-folder /mnt/hwfile/mllm/xinglong/llava/llava_1.5/playground/data/eval/gqa/images \
         --answers-file ./playground/data/eval/gqa/answers/$SPLIT/$CKPT/${CHUNKS}_${IDX}.jsonl \
         --num-chunks $CHUNKS \
         --chunk-idx $IDX \
         --temperature 0 \
         --square_eval True \
-        --conv-mode vicuna_v1 &
+        --conv-mode ${CONV_MODE} &
 done
 
 wait
