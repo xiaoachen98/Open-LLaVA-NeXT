@@ -12,7 +12,7 @@ An open-source implementation of **LLaVA-NeXT** series for facilitating the larg
 
 See more details in [ModelZoo.md](docs/ModelZoo.md).
 
-| Name | ViT | LLM | Weights | MME | SEED-image | SQA-image | MMBench | MMBench-CN | TextVQA | GQA |
+| Name | ViT | LLM | Weights | MME | SEED | SQA | MMB | MMB-CN | TextVQA | GQA |
 |---|---|---|---|---|---|---|---|---|---|---|
 | llava-next-vicuna-7b | CLIP-L-336 | Vicuna-7B | [HF](https://huggingface.co/liuhaotian/llava-v1.6-vicuna-7b) | 1519 | 70.2 | 70.1 | 67.4 | 60.6 | 64.9 | 64.2 |
 | open-llava-next-vicuna-7b| CLIP-L-336 | Vicuna-7B | [HF](https://huggingface.co/Lin-Chen/open-llava-next-vicuna-7b) | 1540 | 71.1 | 70.7 | 68.5 | 60.7 | 67.2 | 64.3 |
