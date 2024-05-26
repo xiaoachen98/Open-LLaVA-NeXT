@@ -995,7 +995,6 @@ def train(attn_implementation=None):
                 f'Set the max_position_embeddings from {config.max_position_embeddings} to {training_args.model_max_length}')
             model_max_length_args.update(
                 {'max_position_embeddings': training_args.model_max_length})
-
     if model_args.vision_tower is not None:
         if 'mpt' in model_args.model_name_or_path:
             config = transformers.AutoConfig.from_pretrained(
@@ -1177,7 +1176,6 @@ def train(attn_implementation=None):
 
     data_module = make_supervised_data_module(tokenizer=tokenizer,
                                               data_args=data_args)
-    
     trainer = LLaVATrainer(model=model,
                            tokenizer=tokenizer,
                            args=training_args,
@@ -1204,17 +1202,6 @@ def train(attn_implementation=None):
                 training_args.output_dir, state_dict=state_dict)
             torch.save(non_lora_state_dict, os.path.join(
                 training_args.output_dir, 'non_lora_trainables.bin'))
-            if training_args.unfreeze_mm_vision_tower:
-                if trainer.deepspeed:
-                    torch.cuda.synchronize()
-                trainer.model.get_vision_tower().image_processor.save_pretrained(
-                    os.path.join(training_args.output_dir, 'vision_tower'))
-                trainer.model.get_vision_tower().vision_tower.vision_model.config.save_pretrained(
-                    os.path.join(training_args.output_dir, 'vision_tower'))
-                weight_to_save = get_vision_tower_state_maybe_zero_3(
-                    trainer.model.get_vision_tower().vision_tower.named_parameters())
-                torch.save(weight_to_save, os.path.join(
-                    training_args.output_dir, 'vision_tower/pytorch_model.bin'))
     else:
         safe_save_model_for_hf_trainer(trainer=trainer,
                                        output_dir=training_args.output_dir)

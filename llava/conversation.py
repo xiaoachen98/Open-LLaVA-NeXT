@@ -369,6 +369,17 @@ Answer the questions.""",
     sep="<|im_end|>",
 )
 
+conv_llava_llama_3 = Conversation(
+    system="<|begin_of_text|><|start_header_id|>system<|end_header_id|>\n\nYou are a helpful language and vision assistant. You are able to understand the visual content that the user provides, and assist the user with a variety of tasks using natural language.",
+    roles=("<|start_header_id|>user<|end_header_id|>\n\n",
+           "<|start_header_id|>assistant<|end_header_id|>\n\n"),
+    version="llama3",
+    messages=[],
+    offset=0,
+    sep_style=SeparatorStyle.MPT,
+    sep="<|eot_id|>",
+)
+
 default_conversation = conv_vicuna_v1
 conv_templates = {
     "default": conv_vicuna_v0,
@@ -387,6 +398,7 @@ conv_templates = {
     "llava_v1": conv_llava_v1,
     "v1_mmtag": conv_llava_v1_mmtag,
     "llava_llama_2": conv_llava_llama_2,
+    "llava_llama_3": conv_llava_llama_3,
 
     "mpt": conv_mpt,
 }
