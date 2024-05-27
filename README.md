@@ -4,7 +4,7 @@ An open-source implementation of **LLaVA-NeXT** series for facilitating the larg
 
 ## 💡 Highlights
 
-- 🔥 All training data are open-sourced.
+- 🔥 All training data and checkpoints at each stage are open-sourced, friendly for research usage.
 - 🔥 Able to reproduce the results of **[LLaVA-NeXT](https://llava-vl.github.io/blog/2024-05-10-llava-next-stronger-llms/)**.
 - 🔥 Based on the **[LLaVA](https://github.com/haotian-liu/LLaVA)** codebase with minimal modification, easy to follow.
 
@@ -14,9 +14,9 @@ See more details in [ModelZoo.md](docs/ModelZoo.md).
 
 | Name | ViT | LLM | Weights | MME | SEED | SQA | MMB | MMB-CN | TextVQA | GQA |
 |---|---|---|---|---|---|---|---|---|---|---|
-| llava-next-vicuna-7b | CLIP-L-336 | Vicuna-7B | [HF](https://huggingface.co/liuhaotian/llava-v1.6-vicuna-7b) | 1519 | 70.2 | 70.1 | 67.4 | 60.6 | 64.9 | 64.2 |
-| open-llava-next-vicuna-7b| CLIP-L-336 | Vicuna-7B | [HF](https://huggingface.co/Lin-Chen/open-llava-next-vicuna-7b) | 1540 | 71.1 | 70.7 | 68.5 | 60.7 | 67.2 | 64.3 |
-| open-llava-next-llama3-8b| CLIP-L-336 | LLaMA3-8B | [HF](https://huggingface.co/Lin-Chen/open-llava-next-llama3-8b) | 1552 | 74.4 | 77.3 | 74.4 | 70.4 | 69.8 | 65.9 |
+| llava-next-vicuna-7b | CLIP-L-336 | Vicuna-7B | [SFT](https://huggingface.co/liuhaotian/llava-v1.6-vicuna-7b) | 1519 | 70.2 | 70.1 | 67.4 | 60.6 | 64.9 | 64.2 |
+| open-llava-next-vicuna-7b| CLIP-L-336 | Vicuna-7B | [PT](https://huggingface.co/Lin-Chen/open-llava-next-vicuna-7b/tree/main/pretrain), [SFT](https://huggingface.co/Lin-Chen/open-llava-next-vicuna-7b) | 1540 | 71.1 | 70.7 | 68.5 | 60.7 | 67.2 | 64.3 |
+| open-llava-next-llama3-8b| CLIP-L-336 | LLaMA3-8B | [PT](https://huggingface.co/Lin-Chen/open-llava-next-llama3-8b), [SFT](https://huggingface.co/Lin-Chen/open-llava-next-llama3-8b) | 1552 | 74.4 | 77.3 | 74.4 | 70.4 | 69.8 | 65.9 |
 
 
 ## 👨‍💻 ToDo
