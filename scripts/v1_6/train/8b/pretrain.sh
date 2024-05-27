@@ -1,13 +1,13 @@
 #!/bin/bash
 set -x
 
-# wandb login
+wandb login
 
 export CUDA_DEVICE_MAX_CONNECTIONS=1
 export GPUS_PER_NODE=8
-export NNODES=2
-export BATCH_SIZE=4
-export GRADIENT_ACCU_STEPS=4
+export NNODES=4
+export BATCH_SIZE=8
+export GRADIENT_ACCU_STEPS=1
 export MASTER_PORT=29503
 export CPUS_PER_TASK=24
 export QUOTA=reserved
@@ -18,7 +18,7 @@ export BASE_LR=1e-3
 
 SRUN_ARGS=${SRUN_ARGS:-""}
 PYTHONPATH="$(dirname $0)/..":$PYTHONPATH \
-srun -p mllm \
+srun -p Your Partion \
     --nodes=$NNODES \
     --ntasks-per-node=1 \
     --gres=gpu:$GPUS_PER_NODE \
@@ -32,7 +32,7 @@ srun -p mllm \
     --version plain \
     --data_path ${DATA_PATH} \
     --image_folder data \
-    --vision_tower pretrained/vision_encoder/clip-vit-large-patch14-336 \
+    --vision_tower openai/clip-vit-large-patch14-336 \
     --mm_projector_type mlp2x_gelu \
     --tune_mm_mlp_adapter True \
     --unfreeze_mm_vision_tower False \
@@ -62,4 +62,4 @@ srun -p mllm \
     --gradient_checkpointing True \
     --dataloader_num_workers 4 \
     --lazy_preprocess True \
-    --report_to none'
+    --report_to wandb'
