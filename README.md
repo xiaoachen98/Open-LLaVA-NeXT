@@ -2,6 +2,8 @@
 
 An open-source implementation of **LLaVA-NeXT** series for facilitating the large multi-modal model community.
 
+**Resources:** [[🤗HuggingFace](https://huggingface.co/collections/Lin-Chen/open-llava-next-665051533fa1a30553fcee8d)]
+
 ## 💡 Highlights
 
 - 🔥 All training data and checkpoints at each stage are open-sourced, friendly for research usage.
