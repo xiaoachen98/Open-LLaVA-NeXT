@@ -18,6 +18,7 @@ See more details in [ModelZoo.md](docs/ModelZoo.md).
 |---|---|---|---|---|---|---|---|---|---|---|
 | llava-next-vicuna-7b | CLIP-L-336 | Vicuna-7B | [SFT](https://huggingface.co/liuhaotian/llava-v1.6-vicuna-7b) | 1519 | 70.2 | 70.1 | 67.4 | 60.6 | 64.9 | 64.2 |
 | open-llava-next-vicuna-7b| CLIP-L-336 | Vicuna-7B | [PT](https://huggingface.co/Lin-Chen/open-llava-next-vicuna-7b/tree/main/pretrain), [SFT](https://huggingface.co/Lin-Chen/open-llava-next-vicuna-7b) | 1540 | 71.1 | 70.7 | 68.5 | 60.7 | 67.2 | 64.3 |
+| llava-next-llama3-8b| CLIP-L-336 | LLaMA3-8B | [SFT](https://huggingface.co/lmms-lab/llama3-llava-next-8b) | 1591 | 72.7 | 73.4 | 72.6 | 69.0 | 65.0 | 65.5 |
 | open-llava-next-llama3-8b| CLIP-L-336 | LLaMA3-8B | [PT](https://huggingface.co/Lin-Chen/open-llava-next-llama3-8b), [SFT](https://huggingface.co/Lin-Chen/open-llava-next-llama3-8b) | 1552 | 74.4 | 77.3 | 74.4 | 70.4 | 69.8 | 65.9 |
 
 
