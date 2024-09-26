@@ -109,6 +109,19 @@ New options to note:
 
 See [Evaluation.md](docs/Evaluation.md).
 
+## Citation
+
+If you find this project useful in your research, please consider cite:
+
+```bibtex
+@misc{lin2024open,
+  title={Open-LLaVA-NeXT: An open-source implementation of LLaVA-NeXT series for facilitating the large multi-modal model community.},
+  author={Lin Chen, Long, Xing},
+  howpublished = {\url{https://github.com/xiaoachen98/Open-LLaVA-NeXT}},
+  year={2024}
+}
+```
+
 ## ❤️ Acknowledgments
 
 - [LLaVA](https://github.com/haotian-liu/LLaVA): the codebase we built upon. Thanks for their brilliant contributions to the community! We just can't wait to use LLaVA-NeXT.
